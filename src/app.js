@@ -8,7 +8,7 @@ const mysql = require('mysql');
 const tasksRoutes = require('./routes/tasks');
 
 const app = express();
-app.set('port', process.env.DB_PORT|| 4000);
+app.set('port', process.env.PORT|| 4000);
 
 
 app.use(bodyParser.urlencoded({
