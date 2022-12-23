@@ -1,10 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 const { engine } = require('express-handlebars');
 const myconnection = require('express-myconnection');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const tasksRoutes = require('./routes/tasks');
-require('dotenv').config();
 
 const app = express();
 app.set('port', 4000);
@@ -33,11 +34,11 @@ app.set('view engine', 'hbs');
 
 
 app.use(myconnection(mysql, {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASS || 'password',
+  port: process.env.DB_PORT || 3306,
+  database: process.env.DB_NAME || 'crudnodejs'
 }, 'single'));
 
 
