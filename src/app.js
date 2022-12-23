@@ -4,6 +4,7 @@ const myconnection = require('express-myconnection');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const tasksRoutes = require('./routes/tasks');
+require('dotenv').config();
 
 const app = express();
 app.set('port', 4000);
@@ -22,13 +23,23 @@ app.engine('.hbs', engine({
 app.set('view engine', 'hbs');
 
 
-app.use(myconnection(mysql, {
+/*app.use(myconnection(mysql, {
   host: 'localhost',
   user: 'root',
   password: 'password',
   port: 3306,
   database: 'crudnodejs'
+}, 'single'));*/
+
+
+app.use(myconnection(mysql, {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  port: process.env.DB_PORT,
+  database: process.env.DB_NAME
 }, 'single'));
+
 
 app.listen(app.get('port'), ()=>{
 console.log('Listenin on port: ',app.get('port'));
